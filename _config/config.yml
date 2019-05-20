@@ -1,0 +1,7 @@
+---
+Name: silverstripe-mailchimp-subscribe
+---
+
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - BiffBangPow\SilverStripeMailchimpSubscribe\Extensions\MailchimpSiteConfigExtension
