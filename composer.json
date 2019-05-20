@@ -11,5 +11,10 @@
             "name": "James Heathcote",
             "email": "james.h@biffbangpow.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "BiffBangPow\\SilverStripeMailchimpSubscribe\\": "src/"
+        }
+    }
 }
