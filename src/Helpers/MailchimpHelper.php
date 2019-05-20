@@ -63,4 +63,51 @@ class MailchimpHelper
                 break;
         }
     }
+
+
+    public function sendNewPostAlert(string $listID = null)
+    {
+        $postData = [
+            'Title'         => 'Test post title here',
+            'Summary'       => '<p>Pellentesque id nulla nec orci volutpat congue id quis urna. Donec scelerisque consectetur lorem vitae euismod. Phasellus convallis mi augue, vitae commodo nunc lobortis a. Mauris facilisis facilisis dictum. Morbi in neque pulvinar, mollis quam et, suscipit metus.</p>',
+            'PublishDate'   => '20/05/2019',
+            'FeaturedImage' => 'https://images.pexels.com/photos/2287129/pexels-photo-2287129.jpeg',
+        ];
+        $postArrayData = new SilverStripe\View\ArrayData($postData);
+
+        $listID = $listID ?? $this->defaultListID;
+
+        $result = $this->mailChimp->post("campaigns", [
+            'recipients' => [
+                'list_id' => $listID,
+            ],
+            'type'       => 'regular',
+            'settings'   => [
+                'subject_line' => 'New post from SITE TITLE',
+                'reply_to'     => 'james.h@biffbangpow.com',
+                'from_name'    => 'SITE TITLE',
+            ],
+        ]);
+
+        $campaignID = $result['id'];
+
+        $result = $this->mailChimp->put(
+            "/campaigns/$campaignID/content",
+            [
+                "html" => $postArrayData->renderWith('NewPostEmailTemplate')
+            ]
+        );
+
+        echo '<pre>';
+        var_dump($result);
+        echo '</pre>';
+        die();
+
+        $result = $this->mailChimp->post("/campaigns/$campaignID/actions/send");
+
+        echo '<pre>';
+        var_dump($result);
+        echo '</pre>';
+        die();
+    }
 }
