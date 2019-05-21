@@ -47,7 +47,7 @@ class MailchimpBlogPostExtension extends DataExtension
             $buttonClasses = 'btn-outline-primary font-icon-tick';
             $buttonText = 'Mailout sent';
         } else {
-            $buttonClasses = 'btn-primary font-icon-letter';
+            $buttonClasses = 'btn-primary font-icon-share';
             $buttonText = 'Send mailout';
         }
 
