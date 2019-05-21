@@ -3,6 +3,7 @@
 use DrewM\MailChimp\MailChimp;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\View\ArrayData;
+use SilverStripe\Blog\Model\BlogPost;
 
 class MailchimpHelper
 {
@@ -67,15 +68,28 @@ class MailchimpHelper
         }
     }
 
-
-    public function sendNewPostAlert(string $listID = null)
+    /**
+     * @param BlogPost $blogPost
+     * @param string|null $listID
+     * @return boolean
+     * @throws Exception
+     */
+    public function sendNewPostAlert(BlogPost $blogPost, string $listID = null)
     {
+        $summary = $blogPost->Summary;
+        if (!$summary) {
+            $summary = sprintf('<p>%s</p>', $blogPost->Excerpt(100));
+        }
+
+        $publishDate = DateTime::createFromFormat('Y-m-d H:i:s', $blogPost->PublishDate);
+
         $postData = [
-            'Title'         => 'Test post title here',
-            'Summary'       => '<p>Pellentesque id nulla nec orci volutpat congue id quis urna. Donec scelerisque consectetur lorem vitae euismod. Phasellus convallis mi augue, vitae commodo nunc lobortis a. Mauris facilisis facilisis dictum. Morbi in neque pulvinar, mollis quam et, suscipit metus.</p>',
-            'PublishDate'   => '20/05/2019',
-            'FeaturedImage' => 'https://images.pexels.com/photos/2287129/pexels-photo-2287129.jpeg',
+            'Title'         => $blogPost->Title,
+            'Summary'       => $summary,
+            'PublishDate'   => $publishDate->format('jS F Y'),
+            'FeaturedImage' => $blogPost->FeaturedImage()->scaleMaxWidth(795)->fill(795,530)->Link(),
         ];
+
         $postArrayData = new SilverStripe\View\ArrayData($postData);
 
         $listID = $listID ?? $this->defaultListID;
