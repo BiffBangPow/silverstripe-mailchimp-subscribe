@@ -3,7 +3,9 @@
     "description": "A SilverStripe module for signing up to Mailchimp",
     "type": "silverstripe-vendormodule",
     "require": {
-        "drewm/mailchimp-api": "^2.5"
+        "drewm/mailchimp-api": "^2.5",
+        "dnadesign/silverstripe-elemental": "^3",
+        "silverstripe/blog": "^3.2"
     },
     "license": "proprietary",
     "authors": [
