@@ -6,6 +6,10 @@ SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - BiffBangPow\SilverStripeMailchimpSubscribe\Extensions\MailchimpSiteConfigExtension
 
+SilverStripe\Blog\Model\Blog:
+  extensions:
+    - BiffBangPow\SilverStripeMailchimpSubscribe\Extensions\MailchimpBlogExtension
+
 SilverStripe\Blog\Model\BlogPost:
   extensions:
     - BiffBangPow\SilverStripeMailchimpSubscribe\Extensions\MailchimpBlogPostExtension

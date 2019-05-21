@@ -2,10 +2,8 @@
 
 namespace BiffBangPow\SilverStripeMailchimpSubscribe\Extensions;
 
-use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\ReadonlyField;
-use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\FieldType\DBBoolean;
 
