@@ -2,6 +2,7 @@
 
 namespace BiffBangPow\SilverStripeMailchimpSubscribe\Actions;
 
+use BiffBangPow\SilverStripeMailchimpSubscribe\Helpers\MailchimpHelper;
 use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridField_ActionMenuItem;
@@ -92,6 +93,9 @@ class GridFieldBlogPostMailoutAction implements GridField_ColumnProvider, GridFi
             if ($item->ClassName !== BlogPost::class) {
                 throw new ValidationException('Can only be used to send mailouts about Blog Posts');
             }
+
+            $mailchimp = new MailchimpHelper();
+            $mailchimp->sendNewPostAlert($item);
 
             // todo add send mailout code here
 
