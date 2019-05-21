@@ -4,6 +4,7 @@ namespace BiffBangPow\SilverStripeMailchimpSubscribe\Extensions;
 
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\ReadonlyField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\FieldType\DBBoolean;
 
@@ -22,8 +23,16 @@ class MailchimpBlogPostExtension extends DataExtension
      */
     public function updateCMSFields(FieldList $fields)
     {
+        if ($this->owner->MailchimpMailoutSent === '1') {
+            $mailchimpMailoutSent = 'Yes';
+        } else {
+            $mailchimpMailoutSent = 'No';
+        }
+
+        $fields->removeByName('MailchimpMailoutSent');
+
         $fields->addFieldsToTab('Root.Mailchimp', [
-            CheckboxField::create('MailchimpMailoutSent', 'Mailchimp Mailout Sent')->setReadonly(true),
+            ReadonlyField::create('MailchimpMailoutSent', 'Mailchimp Mailout Sent')->setValue($mailchimpMailoutSent),
         ]);
     }
 }
