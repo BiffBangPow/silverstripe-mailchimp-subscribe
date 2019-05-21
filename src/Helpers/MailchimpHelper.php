@@ -1,5 +1,7 @@
 <?php
 
+namespace BiffBangPow\SilverStripeMailchimpSubscribe\Helpers;
+
 use DrewM\MailChimp\MailChimp;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\View\ArrayData;

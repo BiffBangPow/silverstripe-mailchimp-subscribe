@@ -11,6 +11,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FormAction;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TextField;
+use BiffBangPow\SilverStripeMailchimpSubscribe\Helpers\MailchimpHelper;
 
 class MailchimpSubscribeController extends ElementController
 {
