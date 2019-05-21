@@ -86,18 +86,20 @@ class MailchimpHelper
         }
 
         $publishDate = \DateTime::createFromFormat('Y-m-d H:i:s', $blogPost->PublishDate);
+        $siteTitle = $this->siteConfig->Title;
 
         $postData = [
             'Title'         => $blogPost->Title,
             'Summary'       => $summary,
             'PublishDate'   => $publishDate->format('jS F Y'),
-            'FeaturedImage' => $blogPost->FeaturedImage()
+            'FeaturedImage' => $blogPost->FeaturedImage(),
+            'SiteTitle'     => $siteTitle,
+            'Link'          => $blogPost->Link(),
         ];
 
         $postArrayData = new ArrayData($postData);
 
         $listID = $listID ?? $this->defaultListID;
-        $siteTitle = $this->siteConfig->Title;
         $replyTo = $this->siteConfig->ContactFromEmail;
 
         $result = $this->mailChimp->post("campaigns", [
