@@ -17,7 +17,7 @@ class MailchimpHelper
 
     /**
      * MailchimpHelper constructor.
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct()
     {
@@ -29,14 +29,14 @@ class MailchimpHelper
             $apiKey === '' ||
             $apiKey === null
         ) {
-            throw new Exception('You must enter an API key in Site Config to use this class');
+            throw new \Exception('You must enter an API key in Site Config to use this class');
         }
 
         if (
             $defaultListID === '' ||
             $defaultListID === null
         ) {
-            throw new Exception('You must enter a default list ID in Site Config to use this class');
+            throw new \Exception('You must enter a default list ID in Site Config to use this class');
         }
 
         $this->defaultListID = $defaultListID;
@@ -75,7 +75,7 @@ class MailchimpHelper
      * @param BlogPost $blogPost
      * @param string|null $listID
      * @return boolean
-     * @throws Exception
+     * @throws \Exception
      */
     public function sendNewPostAlert(BlogPost $blogPost, string $listID = null)
     {
@@ -84,7 +84,7 @@ class MailchimpHelper
             $summary = sprintf('<p>%s</p>', $blogPost->Excerpt(100));
         }
 
-        $publishDate = DateTime::createFromFormat('Y-m-d H:i:s', $blogPost->PublishDate);
+        $publishDate = \DateTime::createFromFormat('Y-m-d H:i:s', $blogPost->PublishDate);
 
         $postData = [
             'Title'         => $blogPost->Title,
@@ -93,7 +93,7 @@ class MailchimpHelper
             'FeaturedImage' => $blogPost->FeaturedImage()->scaleMaxWidth(795)->fill(795,530)->Link(),
         ];
 
-        $postArrayData = new SilverStripe\View\ArrayData($postData);
+        $postArrayData = new ArrayData($postData);
 
         $listID = $listID ?? $this->defaultListID;
         $siteTitle = $this->siteConfig->Title;
@@ -123,7 +123,7 @@ class MailchimpHelper
 
         // The API doesn't return status if it is successful it returns the HTML, if it returns status here has been an error
         if (array_key_exists('status', $result)) {
-            throw new Exception('An error has occurred adding content to the campaign ' . $campaignID);
+            throw new \Exception('An error has occurred adding content to the campaign ' . $campaignID);
         }
 
         $result = $this->mailChimp->post("/campaigns/$campaignID/actions/send");
@@ -132,7 +132,7 @@ class MailchimpHelper
         if (is_array($result)) {
             // The API doesn't return status if it is successful it returns the HTML, if it returns status here has been an error
             if (array_key_exists('status', $result)) {
-                throw new Exception(
+                throw new \Exception(
                     sprintf(
                         'A %s error has occured with the message "%s"',
                         $result['status'],
