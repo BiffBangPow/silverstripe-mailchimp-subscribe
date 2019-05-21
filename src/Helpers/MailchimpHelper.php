@@ -86,12 +86,13 @@ class MailchimpHelper
         }
 
         $publishDate = \DateTime::createFromFormat('Y-m-d H:i:s', $blogPost->PublishDate);
+        $featuredImage = $blogPost->FeaturedImage() !== null ? $blogPost->FeaturedImage()->scaleMaxWidth(795)->fill(795,530)->Link() : null;
 
         $postData = [
             'Title'         => $blogPost->Title,
             'Summary'       => $summary,
             'PublishDate'   => $publishDate->format('jS F Y'),
-            'FeaturedImage' => $blogPost->FeaturedImage()->scaleMaxWidth(795)->fill(795,530)->Link(),
+            'FeaturedImage' => $featuredImage
         ];
 
         $postArrayData = new ArrayData($postData);
