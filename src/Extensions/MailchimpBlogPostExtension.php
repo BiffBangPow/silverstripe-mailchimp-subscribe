@@ -33,6 +33,7 @@ class MailchimpBlogPostExtension extends DataExtension
 
         $fields->addFieldsToTab('Root.Mailchimp', [
             ReadonlyField::create('MailchimpMailout', 'Mailchimp Mailout Sent')->setValue($mailchimpMailoutSent),
+            FormAction::create('doMailout', 'Mailout')
         ]);
     }
 
