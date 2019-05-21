@@ -45,14 +45,17 @@ class MailchimpBlogPostExtension extends DataExtension
 
         if ($this->owner->MailchimpMailoutSent === '1') {
             $buttonClasses = 'btn-outline-primary font-icon-tick';
+            $buttonText = 'Mailout sent';
         } else {
-            $buttonClasses = 'btn-primary font-icon-envelope';
+            $buttonClasses = 'btn-primary font-icon-letter';
+            $buttonText = 'Send mailout';
         }
 
         $actions->fieldByName('MajorActions')
             ->push(
-                FormAction::create('doMailout', 'Mailout')
+                FormAction::create('doMailout', $buttonText)
                     ->addExtraClass('btn action ' . $buttonClasses)
+                    ->setUseButtonTag(true)
             );
     }
 }
