@@ -80,6 +80,7 @@ class MailchimpHelper
 
         $listID = $listID ?? $this->defaultListID;
         $siteTitle = $this->siteConfig->Title;
+        $replyTo = $this->siteConfig->ContactFromEmail;
 
         $result = $this->mailChimp->post("campaigns", [
             'recipients' => [
@@ -89,6 +90,7 @@ class MailchimpHelper
             'settings'   => [
                 'subject_line' => sprintf('%s: %s', $siteTitle, $postData['Title']),
                 'from_name'    => $siteTitle,
+                'reply_to'     => $replyTo,
             ],
         ]);
 
@@ -98,17 +100,30 @@ class MailchimpHelper
         $result = $this->mailChimp->put(
             "/campaigns/$campaignID/content",
             [
-                "html" => $html->forTemplate()
+                "html" => $html->forTemplate(),
             ]
         );
 
-        $status = $result['status'];
-
-        if ($status !== 200) {
+        // The API doesn't return status if it is successful it returns the HTML, if it returns status here has been an error
+        if (array_key_exists('status', $result)) {
             throw new Exception('An error has occurred adding content to the campaign ' . $campaignID);
         }
 
         $result = $this->mailChimp->post("/campaigns/$campaignID/actions/send");
+
+        // The API just returns true if it successful, so we can only check the status of the error if it is not successful
+        if (is_array($result)) {
+            // The API doesn't return status if it is successful it returns the HTML, if it returns status here has been an error
+            if (array_key_exists('status', $result)) {
+                throw new Exception(
+                    sprintf(
+                        'A %s error has occured with the message "%s"',
+                        $result['status'],
+                        $result['detail']
+                    )
+                );
+            }
+        }
 
         return $result;
     }
