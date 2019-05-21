@@ -1,5 +1,7 @@
 <?php
 
+namespace BiffBangPow\SilverStripeMailchimpSubscribe\Extensions;
+
 use SilverStripe\Admin\LeftAndMainExtension;
 
 class MailchimpSendMailoutCMSExtension extends LeftAndMainExtension
