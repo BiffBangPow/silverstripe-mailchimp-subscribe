@@ -110,4 +110,13 @@ class MailchimpHelper
         echo '</pre>';
         die();
     }
+
+    public function dumpLists()
+    {
+        $result = $this->mailChimp->get("lists");
+        echo '<pre>';
+        var_dump($result);
+        echo '</pre>';
+        die();
+    }
 }
