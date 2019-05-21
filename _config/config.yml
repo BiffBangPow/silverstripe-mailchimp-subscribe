@@ -13,7 +13,3 @@ SilverStripe\Blog\Model\Blog:
 SilverStripe\Blog\Model\BlogPost:
   extensions:
     - BiffBangPow\SilverStripeMailchimpSubscribe\Extensions\MailchimpBlogPostExtension
-
-SilverStripe\Blog\Model\BlogPostController:
-  extensions:
-    - BiffBangPow\SilverStripeMailchimpSubscribe\Extensions\MailchimpBlogPostControllerExtension
