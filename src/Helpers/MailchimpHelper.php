@@ -112,6 +112,10 @@ class MailchimpHelper
             ],
         ]);
 
+        if (!array_key_exists('status', $result) || $result['status'] !== 'save') {
+            throw new \Exception('An error has occured finding the list ' . $listID . ' please check this is correct');
+        }
+
         $campaignID = $result['id'];
         $html = $postArrayData->renderWith('NewPostEmailTemplate');
 
@@ -141,6 +145,11 @@ class MailchimpHelper
                     )
                 );
             }
+        }
+
+        if ($result === true) {
+            $blogPost->MailchimpMailoutSent = true;
+            $blogPost->write();
         }
 
         return $result;
