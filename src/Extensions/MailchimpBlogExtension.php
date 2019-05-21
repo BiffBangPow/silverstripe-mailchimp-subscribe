@@ -2,10 +2,9 @@
 
 namespace BiffBangPow\SilverStripeMailchimpSubscribe\Extensions;
 
+use BiffBangPow\SilverStripeMailchimpSubscribe\Actions\GridFieldBlogPostMailoutAction;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\ReadonlyField;
 use SilverStripe\ORM\DataExtension;
-use SilverStripe\ORM\FieldType\DBBoolean;
 
 class MailchimpBlogExtension extends DataExtension
 {
@@ -15,6 +14,8 @@ class MailchimpBlogExtension extends DataExtension
      */
     public function updateCMSFields(FieldList $fields)
     {
-
+        $childPages = $fields->fieldByName('Root.ChildPages');
+        $childPagesGrid = $childPages->Fields()->fieldByName('ChildPages');
+        $childPagesGrid->getConfig()->addComponent(new GridFieldBlogPostMailoutAction());
     }
 }
