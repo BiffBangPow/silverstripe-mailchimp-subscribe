@@ -2,6 +2,7 @@
 
 namespace BiffBangPow\SilverStripeMailchimpSubscribe\Actions;
 
+use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridField_ActionMenuItem;
 use SilverStripe\Forms\GridField\GridField_ColumnProvider;
