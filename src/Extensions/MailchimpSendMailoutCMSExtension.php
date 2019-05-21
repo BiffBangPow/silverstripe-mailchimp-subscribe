@@ -34,10 +34,8 @@ class MailchimpSendMailoutCMSExtension extends LeftAndMainExtension
         $mailchimp = new MailchimpHelper();
         $mailchimp->sendNewPostAlert($blogPost);
 
-        Controller::curr()->getResponse()->setStatusCode(
-            200,
-            'Mailout sent'
-        );
+        $this->owner->response->addHeader('X-Status', rawurlencode('Mailout sent'));
+        return $this->owner->getResponseNegotiator()->respond($this->owner->request);
     }
 
 }
