@@ -2,6 +2,7 @@
 
 use DrewM\MailChimp\MailChimp;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\View\ArrayData;
 
 class MailchimpHelper
 {
@@ -9,15 +10,17 @@ class MailchimpHelper
 
     private $mailChimp;
 
+    private $siteConfig;
+
     /**
      * MailchimpHelper constructor.
      * @throws Exception
      */
     public function __construct()
     {
-        $siteConfig = SiteConfig::current_site_config();
-        $apiKey = $siteConfig->MailchimpAPIKey;
-        $defaultListID = $siteConfig->MailchimpSubscribeListID;
+        $this->siteConfig = SiteConfig::current_site_config();
+        $apiKey = $this->siteConfig->MailchimpAPIKey;
+        $defaultListID = $this->siteConfig->MailchimpSubscribeListID;
 
         if (
             $apiKey === '' ||
@@ -76,6 +79,7 @@ class MailchimpHelper
         $postArrayData = new SilverStripe\View\ArrayData($postData);
 
         $listID = $listID ?? $this->defaultListID;
+        $siteTitle = $this->siteConfig->Title;
 
         $result = $this->mailChimp->post("campaigns", [
             'recipients' => [
@@ -83,44 +87,29 @@ class MailchimpHelper
             ],
             'type'       => 'regular',
             'settings'   => [
-                'subject_line' => 'New post from SITE TITLE',
-                'reply_to'     => 'james.h@biffbangpow.com',
-                'from_name'    => 'SITE TITLE',
+                'subject_line' => sprintf('%s: %s', $siteTitle, $postData['Title']),
+                'from_name'    => $siteTitle,
             ],
         ]);
 
         $campaignID = $result['id'];
         $html = $postArrayData->renderWith('NewPostEmailTemplate');
 
-        echo $html;
-        die();
-
         $result = $this->mailChimp->put(
             "/campaigns/$campaignID/content",
             [
-                "html" => $html
+                "html" => $html->forTemplate()
             ]
         );
 
-        echo '<pre>';
-        var_dump($result);
-        echo '</pre>';
-        die();
+        $status = $result['status'];
+
+        if ($status !== 200) {
+            throw new Exception('An error has occurred adding content to the campaign ' . $campaignID);
+        }
 
         $result = $this->mailChimp->post("/campaigns/$campaignID/actions/send");
 
-        echo '<pre>';
-        var_dump($result);
-        echo '</pre>';
-        die();
-    }
-
-    public function dumpLists()
-    {
-        $result = $this->mailChimp->get("lists");
-        echo '<pre>';
-        var_dump($result);
-        echo '</pre>';
-        die();
+        return $result;
     }
 }
