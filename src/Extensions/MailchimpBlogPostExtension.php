@@ -33,7 +33,6 @@ class MailchimpBlogPostExtension extends DataExtension
         $fields->removeByName('MailchimpMailoutSent');
 
         $fields->addFieldsToTab('Root.Mailchimp', [
-            TextField::create('MailchimpMailoutSent', 'Mailchimp Mailout Sent')->setValue($mailchimpMailoutSent)->setReadonly(true),
             ReadonlyField::create('MailchimpMailout', 'Mailchimp Mailout Sent')->setValue($mailchimpMailoutSent),
         ]);
     }
