@@ -5,8 +5,6 @@ namespace BiffBangPow\SilverStripeMailchimpSubscribe\Extensions;
 use BiffBangPow\SilverStripeMailchimpSubscribe\Helpers\MailchimpHelper;
 use SilverStripe\Admin\LeftAndMainExtension;
 use SilverStripe\Blog\Model\BlogPost;
-use SilverStripe\CMS\Controllers\CMSPageEditController;
-use SilverStripe\Control\Controller;
 
 class MailchimpSendMailoutCMSExtension extends LeftAndMainExtension
 {

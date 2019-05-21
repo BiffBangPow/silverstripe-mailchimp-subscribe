@@ -43,19 +43,22 @@ class MailchimpBlogPostExtension extends DataExtension
     {
         parent::updateCMSActions($actions);
 
-        if ($this->owner->MailchimpMailoutSent === '1') {
-            $buttonClasses = 'btn-outline-primary font-icon-tick';
-            $buttonText = 'Mailout sent';
-        } else {
-            $buttonClasses = 'btn-primary font-icon-share';
-            $buttonText = 'Send mailout';
-        }
+        // Don't want to have the option of doing this for Blog Posts that aren't published yet
+        if ($this->owner->PublishDate !== null) {
+            if ($this->owner->MailchimpMailoutSent === '1') {
+                $buttonClasses = 'btn-outline-primary font-icon-tick';
+                $buttonText = 'Mailout sent';
+            } else {
+                $buttonClasses = 'btn-primary font-icon-share';
+                $buttonText = 'Send mailout';
+            }
 
-        $actions->fieldByName('MajorActions')
-            ->push(
-                FormAction::create('doMailout', $buttonText)
-                    ->addExtraClass('btn action ' . $buttonClasses)
-                    ->setUseButtonTag(true)
-            );
+            $actions->fieldByName('MajorActions')
+                ->push(
+                    FormAction::create('doMailout', $buttonText)
+                        ->addExtraClass('btn action ' . $buttonClasses)
+                        ->setUseButtonTag(true)
+                );
+        }
     }
 }
