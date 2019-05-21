@@ -60,6 +60,7 @@ class MailchimpHelper
         switch ($status) {
             case 200:
             case 400:
+            case 'subscribed':
                 return true;
                 break;
             default:
