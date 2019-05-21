@@ -42,6 +42,17 @@ class MailchimpBlogPostExtension extends DataExtension
     public function updateCMSActions(FieldList $actions)
     {
         parent::updateCMSActions($actions);
-        $actions->fieldByName('MajorActions')->push(FormAction::create('doMailout', 'Mailout'));
+
+        if ($this->owner->MailchimpMailoutSent === '1') {
+            $buttonClasses = 'btn-outline-primary font-icon-tick';
+        } else {
+            $buttonClasses = 'btn-primary font-icon-envelope';
+        }
+
+        $actions->fieldByName('MajorActions')
+            ->push(
+                FormAction::create('doMailout', 'Mailout')
+                    ->addExtraClass('btn action ' . $buttonClasses)
+            );
     }
 }
