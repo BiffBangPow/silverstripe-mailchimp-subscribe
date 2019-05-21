@@ -6,6 +6,7 @@ use BiffBangPow\SilverStripeMailchimpSubscribe\Helpers\MailchimpHelper;
 use SilverStripe\Admin\LeftAndMainExtension;
 use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\CMS\Controllers\CMSPageEditController;
+use SilverStripe\Control\Controller;
 
 class MailchimpSendMailoutCMSExtension extends LeftAndMainExtension
 {
@@ -33,9 +34,10 @@ class MailchimpSendMailoutCMSExtension extends LeftAndMainExtension
         $mailchimp = new MailchimpHelper();
         $mailchimp->sendNewPostAlert($blogPost);
 
-        /** @var CMSPageEditController $owner */
-        $owner = $this->owner;
-        $owner->redirectBack();
+        Controller::curr()->getResponse()->setStatusCode(
+            200,
+            'Mailout sent'
+        );
     }
 
 }
