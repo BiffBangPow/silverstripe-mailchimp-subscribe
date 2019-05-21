@@ -31,8 +31,13 @@ class MailchimpSendMailoutCMSExtension extends LeftAndMainExtension
             throw new \Exception('Blog post not found');
         }
 
-        $mailchimp = new MailchimpHelper();
-        $mailchimp->sendNewPostAlert($blogPost);
+        try {
+            $mailchimp = new MailchimpHelper();
+            $mailchimp->sendNewPostAlert($blogPost);
+        } catch (\Exception $exception) {
+            $this->owner->response->addHeader('X-Status', rawurlencode($exception->getMessage()));
+            return $this->owner->getResponseNegotiator()->respond($this->owner->request);
+        }
 
         $this->owner->response->addHeader('X-Status', rawurlencode('Mailout sent'));
         return $this->owner->getResponseNegotiator()->respond($this->owner->request);

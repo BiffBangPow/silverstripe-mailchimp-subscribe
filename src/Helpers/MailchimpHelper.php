@@ -80,6 +80,7 @@ class MailchimpHelper
     public function sendNewPostAlert(BlogPost $blogPost, string $listID = null)
     {
         $summary = $blogPost->Summary;
+
         if (!$summary) {
             $summary = sprintf('<p>%s</p>', $blogPost->Excerpt(100));
         }
