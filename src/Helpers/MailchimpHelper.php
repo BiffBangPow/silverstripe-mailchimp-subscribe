@@ -90,11 +90,15 @@ class MailchimpHelper
         ]);
 
         $campaignID = $result['id'];
+        $html = $postArrayData->renderWith('NewPostEmailTemplate');
+
+        echo $html;
+        die();
 
         $result = $this->mailChimp->put(
             "/campaigns/$campaignID/content",
             [
-                "html" => $postArrayData->renderWith('NewPostEmailTemplate')
+                "html" => $html
             ]
         );
 
