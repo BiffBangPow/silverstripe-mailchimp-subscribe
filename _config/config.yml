@@ -5,3 +5,7 @@ Name: silverstripe-mailchimp-subscribe
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - BiffBangPow\SilverStripeMailchimpSubscribe\Extensions\MailchimpSiteConfigExtension
+
+BiffBangPow\SilverStripeMailchimpSubscribe\SilverStripeMailchimpSubscribe:
+  email_field_class: "col-12"
+  submit_button_class: "btn btn-primary"

@@ -2,16 +2,17 @@
 
 namespace BiffBangPow\SilverStripeMailchimpSubscribe\Controllers;
 
+use BiffBangPow\SilverStripeMailchimpSubscribe\Helpers\MailchimpHelper;
 use DNADesign\Elemental\Controllers\ElementController;
 use SilverStripe\Control\Controller;
-use SilverStripe\Forms\Form;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormAction;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TextField;
-use BiffBangPow\SilverStripeMailchimpSubscribe\Helpers\MailchimpHelper;
 
 class MailchimpSubscribeController extends ElementController
 {
@@ -27,12 +28,15 @@ class MailchimpSubscribeController extends ElementController
      */
     public function SubscribeForm()
     {
+        $emailFieldClass = Config::inst()->get('BiffBangPow\SilverStripeMailchimpSubscribe\SilverStripeMailchimpSubscribe', 'email_field_class');
+        $submitButtonClass = Config::inst()->get('BiffBangPow\SilverStripeMailchimpSubscribe\SilverStripeMailchimpSubscribe', 'submit_button_class');
+
         $fields = FieldList::create([
-            EmailField::create('Email')->addExtraClass('col-12'),
+            EmailField::create('Email')->addExtraClass($emailFieldClass),
         ]);
 
         $actions = FieldList::create(
-            FormAction::create('sendSubscribeForm', 'Submit')
+            FormAction::create('sendSubscribeForm', 'Submit')->addExtraClass($submitButtonClass)
         );
 
         $form = Form::create(
