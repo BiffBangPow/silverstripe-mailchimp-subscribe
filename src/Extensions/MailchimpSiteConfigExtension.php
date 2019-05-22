@@ -14,6 +14,7 @@ class MailchimpSiteConfigExtension extends DataExtension
     private static $db = [
         'MailchimpAPIKey'                        => 'Varchar(200)',
         'MailchimpSubscribeListID'               => 'Varchar(200)',
+        'MailchimpMailoutOuterBackgroundColour'  => 'Varchar(200)',
         'MailchimpMailoutHeaderBackgroundColour' => 'Varchar(200)',
         'MailchimpMailoutHeaderTextColour'       => 'Varchar(200)',
         'MailchimpMailoutBodyBackgroundColour'   => 'Varchar(200)',
@@ -28,6 +29,7 @@ class MailchimpSiteConfigExtension extends DataExtension
      */
     private static $defaults = [
         'MailchimpMailoutHeaderBackgroundColour' => '#2B2B2B',
+        'MailchimpMailoutOuterBackgroundColour'  => '#EEEEEE',
         'MailchimpMailoutHeaderTextColour'       => '#FFFFFF',
         'MailchimpMailoutBodyBackgroundColour'   => '#F7F7F7',
         'MailchimpMailoutBodyTextColour'         => '#212529',
@@ -45,6 +47,7 @@ class MailchimpSiteConfigExtension extends DataExtension
         $fields->addFieldsToTab('Root.Mailchimp', [
             TextField::create('MailchimpAPIKey', 'Mailchimp API Key'),
             TextField::create('MailchimpSubscribeListID', 'Mailchimp Subscribe List ID'),
+            TextField::create('MailchimpMailoutOuterBackgroundColour'),
             TextField::create('MailchimpMailoutHeaderBackgroundColour'),
             TextField::create('MailchimpMailoutHeaderTextColour'),
             TextField::create('MailchimpMailoutBodyBackgroundColour'),

@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600&display=swap" rel="stylesheet">
 </head>
 
-<body style="margin: 0;padding: 0;font-family: 'Source Sans Pro', Helvetica, sans-serif;">
+<body style="margin: 0;padding: 0;font-family: 'Source Sans Pro', Helvetica, sans-serif; background-color: $SiteConfig.MailchimpMailoutOuterBackgroundColour;">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin-left: auto; margin-right: auto;">
         <tr>
             <td style="padding: 20px; background-color: $SiteConfig.MailchimpMailoutHeaderBackgroundColour; color: $SiteConfig.MailchimpMailoutHeaderTextColour;">
@@ -26,6 +26,10 @@
                 <h2 style="margin-top: 0">$Title</h2>
                 <h4 style="margin: 0; font-weight: 300;">$PublishDate</h4>
                 $Summary.RAW
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px; text-align: center; background-color: $SiteConfig.MailchimpMailoutBodyBackgroundColour; color: $SiteConfig.MailchimpMailoutBodyTextColour;">
                 <a href="$Link" class="btn" style="margin-top: 20px;background-color: $SiteConfig.MailchimpMailoutButtonBackgroundColour;padding: 10px;color: $SiteConfig.MailchimpMailoutButtonTextColour;text-transform: uppercase;text-decoration: none;font-weight: 300;border-radius: $SiteConfig.MailchimpMailoutButtonBorderRadius;">Read post</a>
             </td>
         </tr>
