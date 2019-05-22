@@ -24,6 +24,19 @@ class MailchimpSiteConfigExtension extends DataExtension
     ];
 
     /**
+     * @var array
+     */
+    private static $defaults = [
+        'MailchimpMailoutHeaderBackgroundColour' => '#2B2B2B',
+        'MailchimpMailoutHeaderTextColour'       => '#FFFFFF',
+        'MailchimpMailoutBodyBackgroundColour'   => '#F7F7F7',
+        'MailchimpMailoutBodyTextColour'         => '#212529',
+        'MailchimpMailoutButtonBackgroundColour' => '#2B2B2B',
+        'MailchimpMailoutButtonTextColour'       => '#FFFFFF',
+        'MailchimpMailoutButtonBorderRadius'     => '5px',
+    ];
+
+    /**
      * @param FieldList $fields
      * @return void
      */
