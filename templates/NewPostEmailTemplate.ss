@@ -12,7 +12,7 @@
         <tr>
             <td style="padding: 20px; background-color: $SiteConfig.MailchimpMailoutHeaderBackgroundColour; color: $SiteConfig.MailchimpMailoutHeaderTextColour;">
                 <% if $SiteConfig.MailchimpMailoutHeaderLogo %>
-                    <img src="$SiteConfig.MailchimpMailoutHeaderLogo.ScaleMaxWidth(150).Link" style="max-width: 150px; margin-left: auto; margin-right: auto; display: block; margin-bottom: 10px;">
+                    <img src="$SiteConfig.MailchimpMailoutHeaderLogo.ScaleMaxWidth(150).AbsoluteLink" style="max-width: 150px; margin-left: auto; margin-right: auto; display: block; margin-bottom: 10px;">
                 <% end_if %>
                 <h1 style="margin: 0; text-align: center; font-weight: 300;">New post from $SiteTitle</h1>
             </td>

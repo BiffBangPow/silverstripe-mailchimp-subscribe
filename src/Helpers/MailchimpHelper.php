@@ -154,7 +154,7 @@ class MailchimpHelper
             'PublishDate'   => $publishDate->format('jS F Y'),
             'FeaturedImage' => $blogPost->FeaturedImage(),
             'SiteTitle'     => $siteTitle,
-            'Link'          => $blogPost->Link(),
+            'Link'          => $blogPost->AbsoluteLink(),
         ];
 
         $postArrayData = new ArrayData($postData);
