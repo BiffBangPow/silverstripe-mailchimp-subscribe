@@ -20,7 +20,7 @@
         <% if $FeaturedImage %>
             <tr>
                 <td>
-                    <img src="$FeaturedImage.ScaleMaxWidth(795).Fill(795,530).Link" style="max-width: 100%;">
+                    <img src="$FeaturedImage.ScaleMaxWidth(795).Fill(795,530).AbsoluteLink" style="max-width: 100%;">
                 </td>
             </tr>
         <% end_if %>
