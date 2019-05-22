@@ -26,11 +26,7 @@
                 <h2 style="margin-top: 0">$Title</h2>
                 <h4 style="margin: 0; font-weight: 300;">$PublishDate</h4>
                 $Summary.RAW
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 20px; text-align: center; background-color: $SiteConfig.MailchimpMailoutBodyBackgroundColour; color: $SiteConfig.MailchimpMailoutBodyTextColour;">
-                <a href="$Link" class="btn" style="margin-top: 20px;background-color: $SiteConfig.MailchimpMailoutButtonBackgroundColour;padding: 10px;color: $SiteConfig.MailchimpMailoutButtonTextColour;text-transform: uppercase;text-decoration: none;font-weight: 300;border-radius: $SiteConfig.MailchimpMailoutButtonBorderRadius;">Read post</a>
+                <a href="$Link" class="btn" style="display: inline-block; margin-top: 20px;background-color: $SiteConfig.MailchimpMailoutButtonBackgroundColour;padding: 10px;color: $SiteConfig.MailchimpMailoutButtonTextColour;text-transform: uppercase;text-decoration: none;font-weight: 300;border-radius: $SiteConfig.MailchimpMailoutButtonBorderRadius;">Read post</a>
             </td>
         </tr>
     </table>
