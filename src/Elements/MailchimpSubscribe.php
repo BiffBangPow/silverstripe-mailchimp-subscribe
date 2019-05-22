@@ -28,6 +28,14 @@ class MailchimpSubscribe extends BaseElement
      */
     private static $db = [
         'SubscribeListIDOverride' => DBVarchar::class,
+        'SubscribeFormButtonText' => DBVarchar::class,
+    ];
+
+    /**
+     * @var array
+     */
+    private static $defaults = [
+        'SubscribeFormButtonText' => 'Sign up now',
     ];
 
     /**
@@ -38,6 +46,7 @@ class MailchimpSubscribe extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->addFieldsToTab('Root.Main', [
+            TextField::create('SubscribeFormButtonText', 'Subscribe Form Button Text'),
             TextField::create('SubscribeListIDOverride', 'Subscribe List ID Override')
                 ->setDescription('If this is left blank the Mailchimp Subscribe List ID from Settings will be used'),
         ]);

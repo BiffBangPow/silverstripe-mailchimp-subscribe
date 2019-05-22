@@ -35,8 +35,10 @@ class MailchimpSubscribeController extends ElementController
             EmailField::create('Email')->addExtraClass($emailFieldClass),
         ]);
 
+        $buttonText = $this->getElement()->SubscribeFormButtonText;
+
         $actions = FieldList::create(
-            FormAction::create('sendSubscribeForm', 'Submit')->addExtraClass($submitButtonClass)
+            FormAction::create('sendSubscribeForm', $buttonText)->addExtraClass($submitButtonClass)
         );
 
         $form = Form::create(
