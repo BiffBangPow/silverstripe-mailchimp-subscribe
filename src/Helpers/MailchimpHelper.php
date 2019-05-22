@@ -87,12 +87,12 @@ class MailchimpHelper
             'settings'   => [
                 'subject_line' => sprintf('%s: %s', $this->siteConfig->Title, $blogPost->Title),
                 'from_name'    => $this->siteConfig->Title,
-                'reply_to'     => $this->siteConfig->ContactFromEmail,
+                'reply_to'     => $this->siteConfig->MailchimpFromEmail,
             ],
         ]);
 
         if (!array_key_exists('status', $result) || $result['status'] !== 'save') {
-            throw new \Exception('An error has occured finding the list ' . $listID . ' please check this is correct');
+            throw new \Exception('An error has occured finding the list ' . $listID . ' please check this is correct in settings, also check your "Mailchimp From Email" is correct');
         }
 
         $campaignID = $result['id'];
