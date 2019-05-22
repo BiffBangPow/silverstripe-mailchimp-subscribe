@@ -1,6 +1,7 @@
 {
     "name": "biffbangpow/silverstripe-mailchimp-subscribe",
     "description": "A SilverStripe module for signing up to Mailchimp",
+    "keywords": ["silverstripe"],
     "type": "silverstripe-vendormodule",
     "require": {
         "drewm/mailchimp-api": "^2.5",
