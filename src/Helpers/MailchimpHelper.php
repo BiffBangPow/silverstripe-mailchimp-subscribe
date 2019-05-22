@@ -128,6 +128,7 @@ class MailchimpHelper
         if ($result === true) {
             $blogPost->MailchimpMailoutSent = true;
             $blogPost->write();
+            $blogPost->publishSingle();
         }
 
         return $result;
