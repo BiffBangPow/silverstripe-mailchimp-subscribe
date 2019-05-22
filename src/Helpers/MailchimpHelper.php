@@ -79,38 +79,15 @@ class MailchimpHelper
      */
     public function sendNewPostAlert(BlogPost $blogPost, string $listID = null)
     {
-        $summary = $blogPost->Summary;
-
-        if (!$summary) {
-            $summary = sprintf('<p>%s</p>', $blogPost->Excerpt(100));
-        }
-
-        $publishDate = \DateTime::createFromFormat('Y-m-d H:i:s', $blogPost->PublishDate);
-        $siteTitle = $this->siteConfig->Title;
-
-        $postData = [
-            'Title'         => $blogPost->Title,
-            'Summary'       => $summary,
-            'PublishDate'   => $publishDate->format('jS F Y'),
-            'FeaturedImage' => $blogPost->FeaturedImage(),
-            'SiteTitle'     => $siteTitle,
-            'Link'          => $blogPost->Link(),
-        ];
-
-        $postArrayData = new ArrayData($postData);
-
-        $listID = $listID ?? $this->defaultListID;
-        $replyTo = $this->siteConfig->ContactFromEmail;
-
         $result = $this->mailChimp->post("campaigns", [
             'recipients' => [
-                'list_id' => $listID,
+                'list_id' => $listID ?? $this->defaultListID,
             ],
             'type'       => 'regular',
             'settings'   => [
-                'subject_line' => sprintf('%s: %s', $siteTitle, $postData['Title']),
-                'from_name'    => $siteTitle,
-                'reply_to'     => $replyTo,
+                'subject_line' => sprintf('%s: %s', $this->siteConfig->Title, $blogPost->Title),
+                'from_name'    => $this->siteConfig->Title,
+                'reply_to'     => $this->siteConfig->ContactFromEmail,
             ],
         ]);
 
@@ -119,12 +96,11 @@ class MailchimpHelper
         }
 
         $campaignID = $result['id'];
-        $html = $postArrayData->renderWith('NewPostEmailTemplate');
 
         $result = $this->mailChimp->put(
             "/campaigns/$campaignID/content",
             [
-                "html" => $html->forTemplate(),
+                "html" => $this->getEmailHTML($blogPost),
             ]
         );
 
@@ -155,5 +131,44 @@ class MailchimpHelper
         }
 
         return $result;
+    }
+
+    /**
+     * @param BlogPost $blogPost
+     * @return string
+     */
+    public function getEmailHTML(BlogPost $blogPost)
+    {
+        $summary = $blogPost->Summary;
+
+        if (!$summary) {
+            $summary = sprintf('<p>%s</p>', $blogPost->Excerpt(100));
+        }
+
+        $publishDate = \DateTime::createFromFormat('Y-m-d H:i:s', $blogPost->PublishDate);
+        $siteTitle = $this->siteConfig->Title;
+
+        $postData = [
+            'Title'         => $blogPost->Title,
+            'Summary'       => $summary,
+            'PublishDate'   => $publishDate->format('jS F Y'),
+            'FeaturedImage' => $blogPost->FeaturedImage(),
+            'SiteTitle'     => $siteTitle,
+            'Link'          => $blogPost->Link(),
+        ];
+
+        $postArrayData = new ArrayData($postData);
+        $html = $postArrayData->renderWith('NewPostEmailTemplate');
+        return $html->forTemplate();
+    }
+
+    /**
+     * This is very useful for building the templates
+     *
+     * @param BlogPost $blogPost
+     */
+    public function echoEmailHTML(BlogPost $blogPost)
+    {
+        echo $this->getEmailHTML($blogPost);
     }
 }

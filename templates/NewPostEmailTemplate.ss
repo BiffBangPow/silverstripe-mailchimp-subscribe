@@ -11,6 +11,9 @@
     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin-left: auto; margin-right: auto;">
         <tr>
             <td style="padding: 20px; background-color: $SiteConfig.MailchimpMailoutHeaderBackgroundColour; color: $SiteConfig.MailchimpMailoutHeaderTextColour;">
+                <% if $SiteConfig.MailchimpMailoutHeaderLogo %>
+                    <img src="$SiteConfig.MailchimpMailoutHeaderLogo.ScaleMaxWidth(300).Link" style="max-width: 300px; margin-left: auto; margin-right: auto; display: block;">
+                <% end_if %>
                 <h1 style="margin: 0; text-align: center; font-weight: 300;">New post from $SiteTitle</h1>
             </td>
         </tr>
@@ -26,7 +29,7 @@
                 <h2 style="margin-top: 0">$Title</h2>
                 <h4 style="margin: 0; font-weight: 300;">$PublishDate</h4>
                 $Summary.RAW
-                <a href="$Link" class="btn" style="display: inline-block; margin-top: 20px;background-color: $SiteConfig.MailchimpMailoutButtonBackgroundColour;padding: 10px;color: $SiteConfig.MailchimpMailoutButtonTextColour;text-transform: uppercase;text-decoration: none;font-weight: 300;border-radius: $SiteConfig.MailchimpMailoutButtonBorderRadius;">Read post</a>
+                <a href="$Link" class="btn" style="display: inline-block; margin-top: 10px;background-color: $SiteConfig.MailchimpMailoutButtonBackgroundColour;padding: 10px;color: $SiteConfig.MailchimpMailoutButtonTextColour;text-transform: uppercase;text-decoration: none;font-weight: 300;border-radius: $SiteConfig.MailchimpMailoutButtonBorderRadius;">Read post</a>
             </td>
         </tr>
     </table>

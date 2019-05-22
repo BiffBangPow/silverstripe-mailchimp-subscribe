@@ -2,6 +2,7 @@
 
 namespace BiffBangPow\SilverStripeMailchimpSubscribe\Extensions;
 
+use SilverStripe\Assets\Image;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataExtension;
@@ -36,6 +37,20 @@ class MailchimpSiteConfigExtension extends DataExtension
         'MailchimpMailoutButtonBackgroundColour' => '#2B2B2B',
         'MailchimpMailoutButtonTextColour'       => '#FFFFFF',
         'MailchimpMailoutButtonBorderRadius'     => '5px',
+    ];
+
+    /**
+     * @var array
+     */
+    private static $has_one = [
+        'MailchimpMailoutHeaderLogo' => Image::class
+    ];
+
+    /**
+     * @var array
+     */
+    private static $owns = [
+        'MailchimpMailoutHeaderLogo'
     ];
 
     /**
